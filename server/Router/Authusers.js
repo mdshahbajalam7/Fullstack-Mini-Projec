@@ -1,10 +1,9 @@
 const { Router } = require("express");
-
 const Authuser = require("../models/Auth");
 const jwt = require("jsonwebtoken");
-
 const AuthRouter = Router();
 
+// <-------------------PostRouterSingup-------------------------->
 AuthRouter.post("/signup", async (req, res) => {
   const { name, username, email, DOB, Role, location, password } = req.body;
   try {
@@ -26,6 +25,7 @@ AuthRouter.post("/signup", async (req, res) => {
     console.log(error);
   }
 });
+// <-------------------PostRouter login-------------------------->
 AuthRouter.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const logindata1 = await Authuser.findOne({ username, password });
@@ -39,6 +39,47 @@ AuthRouter.post("/login", async (req, res) => {
     return res.send({ token: token, message: "login successfully" });
   }
   res.status(401).send("unathorized");
+});
+// <-------------------getRouter-------------------------->
+
+AuthRouter.get("/get", async (req, res) => {
+  try {
+    const getdata = await Authuser.find();
+    res
+      .status(200)
+      .json({ message: "get data Successfully", getdata: getdata });
+  } catch (error) {
+    res.status(401).json(error.message);
+    console.log(error);
+  }
+});
+// <-------------------UpdateRouter-------------------------->
+AuthRouter.put("/update/:loginId", async (req, res) => {
+  const loginId = req.params.loginId;
+  const payload = req.body;
+  try {
+    let updatedata = await Authuser.findByIdAndUpdate(
+      { _id: loginId },
+      payload
+    );
+    res
+      .status(201)
+      .json({ message: "Update Successfully", updatedata: updatedata });
+  } catch (error) {
+    res.status(501).json(error.message);
+  }
+});
+// <-------------------DeleteRouter-------------------------->
+AuthRouter.delete("/deletes/:loginId", async (req, res) => {
+  const loginId = req.params.loginId;
+  try {
+    let deletedata = await Authuser.findByIdAndDelete({ _id: loginId });
+    res
+      .status(201)
+      .json({ message: "Update Successfully", updatedata: deletedata });
+  } catch (error) {
+    res.status(501).json(error.message);
+  }
 });
 
 module.exports = AuthRouter;
