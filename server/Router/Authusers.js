@@ -5,16 +5,16 @@ const AuthRouter = Router();
 
 // <-------------------PostRouterSingup-------------------------->
 AuthRouter.post("/signup", async (req, res) => {
-  const { name, username, email, DOB, Role, location, password } = req.body;
+  const { Name, Username, Email, DOB, Role, Location, Password } = req.body;
   try {
     const signupdata = new Authuser({
-      name,
-      username,
-      email,
+      Name,
+      Username,
+      Email,
       DOB,
       Role,
-      location,
-      password,
+      Location,
+      Password,
     });
     console.log("signupdata", signupdata);
     signupdata.save().then(() => {
@@ -26,7 +26,7 @@ AuthRouter.post("/signup", async (req, res) => {
   }
 });
 // <-------------------PostRouter login-------------------------->
-AuthRouter.post("/login", async (req, res) => {
+AuthRouter.post("/lognin", async (req, res) => {
   const { username, password } = req.body;
   const logindata1 = await Authuser.findOne({ username, password });
   console.log("logindata1", logindata1);

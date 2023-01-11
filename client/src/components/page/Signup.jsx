@@ -3,6 +3,8 @@ import TextField from "@mui/material/TextField";
 import styles from "../page/data.module.css";
 import { Box, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
+import axios from "axios";
+import { BaseUrl } from "../../App";
 function Signup() {
   const [formdata, setformdata] = useState({});
   const handlechange = (e) => {
@@ -10,6 +12,12 @@ function Signup() {
   };
   const handlesubmit = (e) => {
     e.preventDefault();
+    axios
+      .post(`${BaseUrl}/signup`, formdata)
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch((err) => console.log(err));
     console.log(formdata);
   };
   return (
