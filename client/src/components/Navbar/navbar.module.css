@@ -1,3 +1,19 @@
 .container{
    border: 1px solid red; 
+   display: flex;
+   justify-content: space-between;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.full{
+    padding: 10px 20px;
+}
+.HomeSide{
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.link{
+    text-decoration: none;
+    color: black;
 }
