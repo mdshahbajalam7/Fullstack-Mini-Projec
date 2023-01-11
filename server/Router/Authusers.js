@@ -27,10 +27,10 @@ AuthRouter.post("/signup", async (req, res) => {
 });
 // <-------------------PostRouter login-------------------------->
 AuthRouter.post("/lognin", async (req, res) => {
-  const { username, password } = req.body;
-  const logindata1 = await Authuser.findOne({ username, password });
+  const { Username, Password } = req.body;
+  const logindata1 = await Authuser.findOne({ Username, Password });
   console.log("logindata1", logindata1);
-  if (logindata1?.username !== username) {
+  if (logindata1?.Username !== Username) {
     res.status(402).send("Inavlid email");
   } else {
     const token = jwt.sign({ username: "chand" }, "Mdshahbaj700", {
