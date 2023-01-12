@@ -4,6 +4,7 @@ import About from "./components/About/About";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Lognin from "./components/page/Lognin";
+import PrivateRoute from "./components/page/PrivateRoute";
 import Signup from "./components/page/Signup";
 export const BaseUrl = "http://localhost:8080/auth";
 function App() {
@@ -11,8 +12,22 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <PrivateRoute>
+              <About />
+            </PrivateRoute>
+          }
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/lognin" element={<Lognin />} />
       </Routes>

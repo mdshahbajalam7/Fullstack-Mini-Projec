@@ -6,6 +6,8 @@
 }
 .full{
     padding: 10px 20px;
+    margin-top: 8px;
+    /* border: 1px solid; */
 }
 .HomeSide{
     width: 30%;
@@ -14,6 +16,7 @@
     padding: 10px 20px;
 }
 .link{
+    margin-top: 8px;
     text-decoration: none;
     color: black;
 }

@@ -8,10 +8,9 @@ const AuthSchema = new Schema({
   Role: {
     type: String,
     enum: ["Admin", "Explorer"],
-    required: true,
   },
   Location: { type: String },
-  Password: { type: Number },
+  Password: { type: String },
   createdAt: {
     type: Date,
     default: new Date(),

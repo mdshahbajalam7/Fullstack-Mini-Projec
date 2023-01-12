@@ -5,7 +5,9 @@ import { Box, MenuItem, Select } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import { BaseUrl } from "../../App";
+import { useNavigate } from "react-router-dom";
 function Signup() {
+  const navigate = useNavigate()
   const [formdata, setformdata] = useState({});
   const handlechange = (e) => {
     setformdata({ ...formdata, [e.target.name]: e.target.value });
@@ -16,6 +18,7 @@ function Signup() {
       .post(`${BaseUrl}/signup`, formdata)
       .then(({ data }) => {
         console.log(data);
+        navigate("/lognin")
       })
       .catch((err) => console.log(err));
     console.log(formdata);

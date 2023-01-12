@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React from "react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,57 +26,17 @@ function Navbar() {
         <Link className={styles.link} to="/about">
           About
         </Link>
-        <Link
-          style={{
-            // border: "1px solid",
-            width: "20%",
-            textAlign: "center",
-            height: "30px",
-            marginTop: "-3px",
-            background: "teal",
-            color: "white",
-            borderRadius: "5px",
-          }}
-          className={styles.link}
-          to="/signup"
-        >
+        <Button variant="contained" href="/signup">
           SignUp
-        </Link>
+        </Button>
         {!authState.isAuth ? (
-          <Link
-            style={{
-              // border: "1px solid",
-              width: "20%",
-              textAlign: "center",
-              height: "30px",
-              marginTop: "-3px",
-              background: "Green",
-              color: "white",
-              borderRadius: "5px",
-            }}
-            className={styles.link}
-            to="/lognin"
-          >
+          <Button color="success" variant="contained" href="/lognin">
             Lognin
-          </Link>
+          </Button>
         ) : (
-          <Link
-            style={{
-              // border: "1px solid",
-              width: "20%",
-              textAlign: "center",
-              height: "30px",
-              marginTop: "-3px",
-              background: "red",
-              color: "white",
-              borderRadius: "5px",
-            }}
-            className={styles.link}
-            // to="/lognin"
-            onClick={logoutfunction}
-          >
+          <Button variant="contained" color="error" onClick={logoutfunction}>
             Logout
-          </Link>
+          </Button>
         )}
       </div>
     </div>
