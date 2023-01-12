@@ -13,30 +13,40 @@ NotesRouter.get("/note", async (req, res) => {
 });
 
 NotesRouter.post("/create", async (req, res) => {
-  const { title, note, category, author } = req.body;
+  const { title, note, category, userID } = req.body;
   try {
-    const new_note = new NotesModel({ title, note, category, author });
+    const new_note = new NotesModel({ title, note, category, userID});
     await new_note.save();
-    res.status(201).json({ Message: "new Note data Create successfully",new_note:new_note });
+    res.status(201).json({
+      Message: "new Note data Create successfully",
+      new_note: new_note,
+    });
   } catch (error) {
     console.log(error);
     res.status(401).json("someThing went wrong");
   }
 });
 
-NotesRouter.patch("/update/:notesId", async (req, res) => {
-  const notesId = req.params.notesId;
+NotesRouter.patch("/update/:id", async (req, res) => {
+  const id = req.params.id;
   const payload = req.body;
+  const node = await NotesModel.find({ _id: id });
+  const userID_in_note = node.userID;
+  const userID_making_req = req.body.userID;
   try {
-    const updatenotes = await NotesModel.findByIdAndUpdate(
-      { _id: notesId },
-      payload
-    );
-    updatenotes.save().then(() => {
-      res
-        .status(201)
-        .json({ message: "Update Successfully", updatenotes: updatenotes });
-    });
+    if (userID_making_req !== userID_in_note) {
+      res.send({ message: "You are not authorized" });
+    } else {
+      const updatenotes = await NotesModel.findByIdAndUpdate(
+        { _id: id },
+        payload
+      );
+      updatenotes.save().then(() => {
+        res
+          .status(201)
+          .json({ message: "Update Successfully", updatenotes: updatenotes });
+      });
+    }
   } catch (error) {
     console.log(error);
     res.status(401).json("someThing went wrong");
@@ -49,10 +59,10 @@ NotesRouter.patch("/update/:notesId", async (req, res) => {
 //   "author":"pulkit tiyagi"
 // }
 
-NotesRouter.delete("/deletedata/:notesId", async (req, res) => {
-  const notesId = req.params.notesId;
+NotesRouter.delete("/deletedata/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-    const deletenotes = await NotesModel.findByIdAndDelete({ _id: notesId });
+    const deletenotes = await NotesModel.findByIdAndDelete({ _id: id });
     res
       .status(201)
       .json({ message: "deletenotes Successfully", deletenotes: deletenotes });

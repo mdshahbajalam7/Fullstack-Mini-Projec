@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const AuthRouter = Router();
 
-
 // {
 //   "Name":"Md Shahbaj Alam",
 // "Username":"Chand",
@@ -54,6 +53,12 @@ AuthRouter.post("/signup", async (req, res) => {
     console.log(error);
   }
 });
+
+// {
+//   "Username":"Chand",
+//   "Password":"alam123"
+// }
+
 // "Name":"Md Shahbaj Alam",
 // "Username":"Chand",
 // "Email":"masai30@gmail.com",
@@ -65,21 +70,26 @@ AuthRouter.post("/signup", async (req, res) => {
 AuthRouter.post("/lognin", async (req, res) => {
   const { Username, Password } = req.body;
   try {
-    const logindata1 = await Authuser.find({ Username });
+    const logindata1 = await Authuser.find({ Username,Password });
     // console.log("logindata1",logindata1);
+    const hashpassword = logindata1[0].Password;
     if (logindata1.length > 0) {
-      bcrypt.compare(Password, logindata1[0].Password, (err, result) => {
-        if (result) {
-          const token = jwt.sign({ Username: "Chand" }, "Mdshahbaj700", {
-            expiresIn: "1d",
-          });
+      bcrypt.compare(Password, hashpassword, (err, result) => {
+        if (!err) {
+          const token = jwt.sign(
+            { userID:logindata1[0]._id },
+            "Mdshahbaj700",
+            {
+              expiresIn: "1d",
+            }
+          );
           res.send({ token: token, message: "login successfully" });
         } else {
-          res.send("Wrong Credntials");
+          res.send("Wrong Credntials1");
         }
       });
     } else {
-      res.send("Wrong Credntials");
+      res.send("Wrong Credntials2");
     }
   } catch (error) {
     console.log(error);
