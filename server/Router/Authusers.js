@@ -4,6 +4,17 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const AuthRouter = Router();
 
+
+// {
+//   "Name":"Md Shahbaj Alam",
+// "Username":"Chand",
+// "Email":"masai30@gmail.com",
+// "DOB":"02-05-200",
+// "Role":"Admin",
+// "Location":"Mumbai",
+// "Password":"123456"
+// }
+
 // <-------------------PostRouterSingup-------------------------->
 AuthRouter.post("/signup", async (req, res) => {
   const {
@@ -114,7 +125,7 @@ AuthRouter.delete("/deletes/:loginId", async (req, res) => {
     let deletedata = await Authuser.findByIdAndDelete({ _id: loginId });
     res
       .status(201)
-      .json({ message: "Update Successfully", updatedata: deletedata });
+      .json({ message: "delte Successfully", updatedata: deletedata });
   } catch (error) {
     res.status(501).json(error.message);
   }

@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const connection = require("./database/db");
 const AuthRouter = require("./Router/Authusers");
-
+const NotesRouter = require("./Router/notesRouter");
+const authenticate = require("./middleware/authenticate")
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +16,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", AuthRouter);
+app.use(authenticate)
+app.use("/note", NotesRouter);
 
 app.listen(process.env.PORT, async () => {
   await connection;
