@@ -3,7 +3,7 @@ const Authuser = require("../models/Auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const AuthRouter = Router();
-
+require("dotenv").config();
 // {
 //   "Name":"Md Shahbaj Alam",
 // "Username":"Chand",
@@ -70,15 +70,15 @@ AuthRouter.post("/signup", async (req, res) => {
 AuthRouter.post("/lognin", async (req, res) => {
   const { Username, Password } = req.body;
   try {
-    const logindata1 = await Authuser.find({ Username,Password });
+    const logindata1 = await Authuser.find({ Username});
     // console.log("logindata1",logindata1);
     const hashpassword = logindata1[0].Password;
     if (logindata1.length > 0) {
       bcrypt.compare(Password, hashpassword, (err, result) => {
         if (!err) {
           const token = jwt.sign(
-            { userID:logindata1[0]._id },
-            "Mdshahbaj700",
+            { userID: logindata1[0]._id },
+            process.env.jwt_key,
             {
               expiresIn: "1d",
             }

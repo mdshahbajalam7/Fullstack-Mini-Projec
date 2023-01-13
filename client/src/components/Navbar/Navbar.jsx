@@ -1,15 +1,18 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useContext } from "react";
+// import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext";
+// import { AuthContext } from "../../Context/AuthContext";
 import styles from "./navbar.module.css";
 
 function Navbar() {
   const navigate = useNavigate();
-  const { authState, logoutUser } = useContext(AuthContext);
+  // const { authState, logoutUser } = useContext(AuthContext);
+  let data =  localStorage.getItem("token")
+  console.log(data);
   const logoutfunction = () => {
-    logoutUser();
+    // logoutUser();
+    localStorage.clear()
     navigate("/lognin");
   };
   return (
@@ -29,7 +32,7 @@ function Navbar() {
         <Button variant="contained" href="/signup">
           SignUp
         </Button>
-        {!authState.isAuth ? (
+        {!data ? (
           <Button color="success" variant="contained" href="/lognin">
             Lognin
           </Button>

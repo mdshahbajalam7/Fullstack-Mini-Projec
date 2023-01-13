@@ -7,6 +7,7 @@ import Lognin from "./components/page/Lognin";
 import PrivateRoute from "./components/page/PrivateRoute";
 import Signup from "./components/page/Signup";
 export const BaseUrl = "http://localhost:8080/auth";
+export const BASEURL = 'http://localhost:8080/note'
 function App() {
   return (
     <div className="App">

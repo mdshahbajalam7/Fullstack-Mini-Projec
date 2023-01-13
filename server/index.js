@@ -5,6 +5,7 @@ const AuthRouter = require("./Router/Authusers");
 const NotesRouter = require("./Router/notesRouter");
 const authenticate = require("./middleware/authenticate")
 const app = express();
+require('dotenv').config()
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
