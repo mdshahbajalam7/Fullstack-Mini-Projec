@@ -15,7 +15,7 @@ NotesRouter.get("/note", async (req, res) => {
 NotesRouter.post("/create", async (req, res) => {
   const { title, note, category, userID } = req.body;
   try {
-    const new_note = new NotesModel({ title, note, category, userID});
+    const new_note = new NotesModel({ title, note, category, userID });
     await new_note.save();
     res.status(201).json({
       Message: "new Note data Create successfully",
@@ -61,11 +61,21 @@ NotesRouter.patch("/update/:id", async (req, res) => {
 
 NotesRouter.delete("/deletedata/:id", async (req, res) => {
   const id = req.params.id;
+  const node = await NotesModel.find({ _id: id });
+  const userID_in_note = node.userID;
+  const userID_making_req = req.body.userID;
   try {
-    const deletenotes = await NotesModel.findByIdAndDelete({ _id: id });
-    res
-      .status(201)
-      .json({ message: "deletenotes Successfully", deletenotes: deletenotes });
+    if (userID_in_note !== userID_making_req) {
+      res.send({ message: "You are not authorized" });
+    } else {
+      const deletenotes = await NotesModel.findByIdAndDelete({ _id: id });
+      res
+        .status(201)
+        .json({
+          message: "deletenotes Successfully",
+          deletenotes: deletenotes,
+        });
+    }
   } catch (error) {
     console.log(error);
     res.status(401).json("someThing went wrong");

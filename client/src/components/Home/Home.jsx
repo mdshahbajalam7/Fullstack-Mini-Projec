@@ -1,3 +1,4 @@
+// import axios from "axios";
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -6,7 +7,6 @@ import NoteCard from "./NoteCard";
 
 function Home() {
   const [getdata, setdata] = useState([]);
-  console.log("getdata", getdata);
   useEffect(() => {
     fetch(`${BASEURL}/note`, {
       headers: {
@@ -20,6 +20,14 @@ function Home() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  // useEffect(()=>{
+  //   axios.get(`${BaseUrl}/get/${"id"}`)
+  //   .then(({data})=>{
+  //     console.log(data);
+  //   })
+  //   .catch((err)=>console.log(err))
+  // },[])
   return (
     <div>
       <h1>All the notes</h1>

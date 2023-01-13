@@ -3,9 +3,9 @@ import React from "react";
 import { BASEURL } from "../../App";
 
 function NoteCard({ title, note, category, userID, _id }) {
-  const deletefunction = (id) => {
-    console.log(_id);
-    fetch(`${BASEURL}/deletedata/${id}`, {
+  const deletefunction = (nodeId) => {
+    console.log(nodeId);
+    fetch(`${BASEURL}/deletedata/${nodeId}`, {
       method: "DELETE",
       headers: {
         Authorization: localStorage.getItem("token"),
