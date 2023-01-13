@@ -70,7 +70,7 @@ AuthRouter.post("/signup", async (req, res) => {
 AuthRouter.post("/lognin", async (req, res) => {
   const { Username, Password } = req.body;
   try {
-    const logindata1 = await Authuser.find({ Username});
+    const logindata1 = await Authuser.find({ Username });
     // console.log("logindata1",logindata1);
     const hashpassword = logindata1[0].Password;
     if (logindata1.length > 0) {
@@ -105,6 +105,22 @@ AuthRouter.get("/get", async (req, res) => {
     res
       .status(200)
       .json({ message: "get data Successfully", getdata: getdata });
+  } catch (error) {
+    res.status(401).json(error.message);
+    console.log(error);
+  }
+});
+
+AuthRouter.get("/get/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const getidauth = await Authuser.findById({ _id:id });
+    res
+      .status(200)
+      .json({
+        message: "get all login data Successfully",
+        getidauth: getidauth,
+      });
   } catch (error) {
     res.status(401).json(error.message);
     console.log(error);

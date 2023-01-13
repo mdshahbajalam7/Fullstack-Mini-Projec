@@ -2,31 +2,40 @@ import { Button } from "@mui/material";
 import React from "react";
 import { BASEURL } from "../../App";
 
-function NoteCard({ title, note, category, userID ,_id}) {
-    const deletefunction=(id)=>{
-        console.log(_id);
-        fetch(`${BASEURL}/deletedata/${id}`,{
-            method:"DELETE",headers:{
-                Authorization:localStorage.getItem("token")
-            }
-        }).then(res=>res.json())
-        .then((res)=>{
-            console.log(res);
-        }).catch((err)=>console.log(err))
-        
-    }
-  return <div>
-    <p>userID : {userID}</p>
-    <h1>Title : {title}</h1>
-    <h5>Note  : {note}</h5>
-    <p>category :  {category}</p>
-    <Button variant="contained" color="error" onClick={()=>deletefunction(_id)}>Delete</Button>
-    <hr />
-  </div>;
+function NoteCard({ title, note, category, userID, _id }) {
+  const deletefunction = (id) => {
+    console.log(_id);
+    fetch(`${BASEURL}/deletedata/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
+  };
+  return (
+    <div>
+      <p>userID : {userID}</p>
+      <h1>Title : {title}</h1>
+      <h5>Note : {note}</h5>
+      <p>category : {category}</p>
+      <Button
+        variant="contained"
+        color="error"
+        onClick={() => deletefunction(_id)}
+      >
+        Delete
+      </Button>
+      <hr />
+    </div>
+  );
 }
 
 export default NoteCard;
-
 
 // {
 //     "_id": "63bfd3e8bfa5ceaabf5935a3",
