@@ -6,7 +6,7 @@ import { BASEURL } from "../../App";
 import styles from "../page/data.module.css";
 function Createnote() {
   const navigate = useNavigate();
-  const [notecreate, setnotecreate] = useState({});
+  const [notecreate, setnotecreate] = useState('');
   const handlechange = (e) => {
     setnotecreate({ ...notecreate, [e.target.name]: e.target.value });
   };
@@ -17,7 +17,7 @@ function Createnote() {
       method: "POST",
       body: JSON.stringify(notecreate),
       headers: {
-        "Content-text": "application/json",
+        "Content-type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
     })
