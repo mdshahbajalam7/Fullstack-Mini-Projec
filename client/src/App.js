@@ -3,6 +3,8 @@ import "./App.css";
 import About from "./components/About/About";
 import Home from "./components/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
+import Createnote from "./components/page/Createnote";
+import Editpage from "./components/page/Editpage";
 import Lognin from "./components/page/Lognin";
 import PrivateRoute from "./components/page/PrivateRoute";
 import Signup from "./components/page/Signup";
@@ -26,6 +28,22 @@ function App() {
           element={
             <PrivateRoute>
               <About />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/createnote"
+          element={
+            <PrivateRoute>
+              <Createnote />
+            </PrivateRoute>
+          }
+        />
+          <Route
+          path="/edit/:id"
+          element={
+            <PrivateRoute>
+              <Editpage />
             </PrivateRoute>
           }
         />

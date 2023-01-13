@@ -1,8 +1,13 @@
 import { Button } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { BASEURL } from "../../App";
 
 function NoteCard({ title, note, category, userID, _id }) {
+ const navigate = useNavigate()
+  const editfunction = (id)=>{
+    navigate(`/edit/${id}`)
+  }
   const deletefunction = (nodeId) => {
     console.log(nodeId);
     fetch(`${BASEURL}/deletedata/${nodeId}`, {
@@ -30,6 +35,7 @@ function NoteCard({ title, note, category, userID, _id }) {
       >
         Delete
       </Button>
+      <Button   onClick={() => editfunction(_id)}  variant="contained" color="primary">Edit</Button>
       <hr />
     </div>
   );

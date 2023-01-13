@@ -52,6 +52,27 @@ NotesRouter.patch("/update/:id", async (req, res) => {
     res.status(401).json("someThing went wrong");
   }
 });
+
+NotesRouter.get("/get/:id", async (req, res) => {
+  const id = req.params.id;
+  const node = await NotesModel.find({ _id: id });
+  const userID_in_note = node.userID;
+  const userID_making_req = req.body.userID;
+  try {
+    if (userID_in_note !== userID_making_req) {
+      res.send({ message: "You are not authorized" });
+    } else {
+      const getidauth = await NotesModel.findById({ _id: id });
+      res.status(200).json({
+        message: "get data with id Successfully",
+        getidauth: getidauth,
+      });
+    }
+  } catch (error) {
+    res.status(401).json(error.message);
+    console.log(error);
+  }
+});
 // {
 //   "title":"Backend",
 //   "note":"Today it is the fullStack CRUD Operation",
@@ -69,12 +90,10 @@ NotesRouter.delete("/deletedata/:id", async (req, res) => {
       res.send({ message: "You are not authorized" });
     } else {
       const deletenotes = await NotesModel.findByIdAndDelete({ _id: id });
-      res
-        .status(201)
-        .json({
-          message: "deletenotes Successfully",
-          deletenotes: deletenotes,
-        });
+      res.status(201).json({
+        message: "deletenotes Successfully",
+        deletenotes: deletenotes,
+      });
     }
   } catch (error) {
     console.log(error);
