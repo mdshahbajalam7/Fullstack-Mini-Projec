@@ -24,6 +24,7 @@ function NoteCard({ title, note, category, userID, _id,loginUser,deletefunction 
         Delete
       </Button>
       <Button
+       style={{marginLeft:"10px"}}
         disabled={userID!==loginUser}
         onClick={() => editfunction(_id)}
         variant="contained"

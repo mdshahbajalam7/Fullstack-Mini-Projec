@@ -52,14 +52,15 @@ function Home() {
   };
 
   return (
+    
     <div>
-      <h1>All the notes</h1>{" "}
-      <span>
-        <Button onClick={craetenote} variant="contained" color="primary">
+        <span>
+        <Button style={{marginTop:"10px"}} onClick={craetenote} variant="contained" color="primary">
           {/* <Createnote /> */}
           Create Note
         </Button>
       </span>
+      <h1>All the notes</h1>{" "}
       <div>
         {getdata.map((elem) => {
           return <NoteCard key={elem._id} {...elem} loginUser={userID} deletefunction={deletefunction}/>;

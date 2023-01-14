@@ -9,12 +9,20 @@ function Editpage() {
   const { id } = useParams();
   console.log(id);
   const navigate = useNavigate();
-  const [notecreate, setnotecreate] = useState({});
-  const handlechange = (e) => {
-    setnotecreate({ ...notecreate, [e.target.name]: e.target.value });
-  };
+  const [title, settitle] = useState("");
+  const [note, setnote] = useState("");
+  const [category, setcategory] = useState("");
+  // const [notecreate, setnotecreate] = useState({});
+  // const handlechange = (e) => {
+  //   setnotecreate({ ...notecreate, [e.target.name]: e.target.value });
+  // };
   const handlesubmit = (e) => {
     e.preventDefault();
+    const notecreate = {
+      title,
+      note,
+      category,
+    };
     console.log(notecreate);
     fetch(`${BASEURL}/update/${id}`, {
       method: "PATCH",
@@ -27,6 +35,7 @@ function Editpage() {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
+        navigate("/");
       })
       .catch((err) => console.log(err));
   };
@@ -36,11 +45,15 @@ function Editpage() {
       headers: {
         Authorization: localStorage.getItem("token"),
       },
-    }).then(res=>res.json())
-    .then((res)=>{
-        console.log(res);
     })
-    .catch((err)=>console.log(err))
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        settitle(res.getidauth.title);
+        setnote(res.getidauth.note);
+        setcategory(res.getidauth.category);
+      })
+      .catch((err) => console.log(err));
   }, []);
   return (
     <div className={styles.container}>
@@ -48,33 +61,36 @@ function Editpage() {
         <form className={styles.form} onSubmit={handlesubmit}>
           <TextField
             style={{ marginTop: "15px" }}
-            onChange={handlechange}
+            onChange={(e) => settitle(e.target.value)}
+            value={title}
             id="outlined-basic"
             label="Title"
-            name="title"
+            // name="title"
             variant="outlined"
           />
           <TextField
             style={{ marginTop: "15px" }}
-            onChange={handlechange}
+            onChange={(e) => setnote(e.target.value)}
+            value={note}
             id="outlined-basic"
             label="Note"
-            name="note"
+            // name="note"
             variant="outlined"
           />
           <TextField
             style={{ marginTop: "15px" }}
-            onChange={handlechange}
+            onChange={(e) => setcategory(e.target.value)}
+            value={category}
             id="outlined-basic"
             label="Category"
-            name="category"
+            // name="category"
             variant="outlined"
           />
           <input
             style={{ marginTop: "15px" }}
             className={styles.btn}
             type="submit"
-            value="Note Create"
+            value=" Update Note Create"
           />
           <Button
             style={{ marginTop: "15px" }}
