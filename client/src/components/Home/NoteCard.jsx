@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { BASEURL } from "../../App";
+import './home.css'
 
 function NoteCard({ title, note, category, userID, _id,loginUser,deletefunction }) {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function NoteCard({ title, note, category, userID, _id,loginUser,deletefunction 
   };
   
   return (
-    <div>
+    <div className="grid">
       <p>userID : {userID}</p>
       <h1>Title : {title}</h1>
       <h5>Note : {note}</h5>
@@ -32,7 +32,7 @@ function NoteCard({ title, note, category, userID, _id,loginUser,deletefunction 
       >
         Edit
       </Button>
-      <hr />
+      {/* <hr /> */}
     </div>
   );
 }

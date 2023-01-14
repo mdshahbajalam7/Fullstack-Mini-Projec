@@ -109,6 +109,8 @@ function Signup() {
             value="SignUp"
           />
         </form>
+        <p>If already signup click on <a href="/lognin">login</a>
+        </p>
       </Box>
     </div>
   );

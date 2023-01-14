@@ -24,6 +24,7 @@ function Createnote() {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
+        navigate("/")
       })
       .catch((err) => console.log(err));
   };

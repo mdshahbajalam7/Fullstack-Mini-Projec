@@ -78,6 +78,7 @@ function Lognin() {
             value="SignUp"
           />
         </form>
+        <p>If you are new on the platfrom please signup frist <a href="/signup">Signup</a></p>
       </Box>
     </div>
   );
