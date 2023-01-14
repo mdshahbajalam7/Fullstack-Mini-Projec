@@ -8,8 +8,8 @@ import Editpage from "./components/page/Editpage";
 import Lognin from "./components/page/Lognin";
 import PrivateRoute from "./components/page/PrivateRoute";
 import Signup from "./components/page/Signup";
-export const BaseUrl = "http://localhost:8080/auth";
-export const BASEURL = 'http://localhost:8080/note'
+export const BaseUrl = "https://zany-gray-prawn-kilt.cyclic.app/auth";
+export const BASEURL = 'https://zany-gray-prawn-kilt.cyclic.app/note'
 function App() {
   return (
     <div className="App">
