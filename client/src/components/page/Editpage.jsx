@@ -17,10 +17,10 @@ function Editpage() {
     e.preventDefault();
     console.log(notecreate);
     fetch(`${BASEURL}/update/${id}`, {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify(notecreate),
       headers: {
-        "Content-text": "application/json",
+        "Content-type": "application/json",
         Authorization: localStorage.getItem("token"),
       },
     })

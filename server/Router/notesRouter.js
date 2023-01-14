@@ -3,9 +3,10 @@ const NotesModel = require("../models/Notes");
 const NotesRouter = Router();
 
 NotesRouter.get("/note", async (req, res) => {
+  const userID_making_req = req.body.userID;
   try {
     let new_notes = await NotesModel.find();
-    res.status(201).json({ Message: "get all the data", new_notes: new_notes });
+    res.status(201).json({ Message: "get all the data", new_notes: new_notes, userID:userID_making_req});
   } catch (error) {
     console.log(error);
     res.status(401).json("someThing went wrong");
@@ -26,13 +27,18 @@ NotesRouter.post("/create", async (req, res) => {
     res.status(401).json("someThing went wrong");
   }
 });
-
+// {
+//     "title": "Full Stack ",
+//     "note": "Today it is the fullStack CRUD Operation1",
+//     "category": "Live Session1"
+//   }
 NotesRouter.patch("/update/:id", async (req, res) => {
   const id = req.params.id;
   const payload = req.body;
-  const node = await NotesModel.find({ _id: id });
+  const node = await NotesModel.findById(id);
   const userID_in_note = node.userID;
   const userID_making_req = req.body.userID;
+  // console.log("userID_in_note",userID_in_note,"userID_making_req",userID_making_req)
   try {
     if (userID_making_req !== userID_in_note) {
       res.send({ message: "You are not authorized" });
@@ -55,7 +61,7 @@ NotesRouter.patch("/update/:id", async (req, res) => {
 
 NotesRouter.get("/get/:id", async (req, res) => {
   const id = req.params.id;
-  const node = await NotesModel.find({ _id: id });
+  const node = await NotesModel.findById(id);
   const userID_in_note = node.userID;
   const userID_making_req = req.body.userID;
   try {
@@ -82,7 +88,7 @@ NotesRouter.get("/get/:id", async (req, res) => {
 
 NotesRouter.delete("/deletedata/:id", async (req, res) => {
   const id = req.params.id;
-  const node = await NotesModel.find({ _id: id });
+  const node = await NotesModel.findById(id);
   const userID_in_note = node.userID;
   const userID_making_req = req.body.userID;
   try {
